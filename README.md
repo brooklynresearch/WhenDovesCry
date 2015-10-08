@@ -18,3 +18,5 @@ The current two messages to control the shoulder of the robot arm are `/sPitch` 
 /sPitch 512 18
 /sRoll 1024 100
 ```
+Current IP address is 192.168.0.200
+Current listening PORT is 12345

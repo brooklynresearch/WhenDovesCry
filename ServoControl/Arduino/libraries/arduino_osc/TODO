@@ -1,0 +1,3 @@
+Rename classes to match OscP5 capitalization 
+Rename "dispatch" to "plug", move to Osc main class
+What to do when oscEvent is not present

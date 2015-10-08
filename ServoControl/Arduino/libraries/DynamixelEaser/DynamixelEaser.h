@@ -111,6 +111,7 @@ public:
     void play( ServoMove* moves, int movesCount, int movesReps, int movesIndex);
 
     // for manual movement of the servo (non moves list)
+    void moveTo( int pos, int durMillis);
     void easeTo( int pos, int durMillis );
 
     // get current position in degrees

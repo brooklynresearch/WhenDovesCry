@@ -1,0 +1,5 @@
+Processing class to send/receive OSC over SLIP encoded serial. 
+
+Uses the OscMessage object from the OscP5 library and follows the same 
+usage pattern. 
+

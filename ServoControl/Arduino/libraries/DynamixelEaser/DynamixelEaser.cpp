@@ -55,6 +55,11 @@ inline float DynamixelEaser_easeInOutCubic(float t, float b, float c, float d)
     if ((t/=d/2) < 1) return c/2*t*t*t + b;
 	return c/2*((t-=2)*t*t + 2) + b;
 }
+
+inline float DynamixelEaser_easeLinearTween(float t, float b, float c, float d)
+{
+    return c*t/d + b;
+}
 // set up the Dynamixels Baud rate and control pin.
 void DynamixelEaser::init()
 {
@@ -86,7 +91,8 @@ void DynamixelEaser::begin(int servoID, int frameTime)
     flipped = false;
     arrived = true;
 
-    easingFunc = DynamixelEaser_easeInOutCubic;
+    //easingFunc = DynamixelEaser_easeInOutCubic;
+    easingFunc = DynamixelEaser_easeLinearTween;
     arrivedFunc = NULL;
 
     useMicros = false;
@@ -153,6 +159,18 @@ void DynamixelEaser::easeTo( int pos, int dur )
     running = true;
 }
 
+void DynamixelEaser::moveTo( int pos, int dur )
+{
+    movesCount = 0;  // no longer doing moves list
+    startPos = currPos;
+    changePos = pos - startPos;
+    durMillis = dur;
+    tickCount = durMillis / frameMillis;
+    tick = 0;
+    arrived = false;
+    running = true;
+}
+
 // used internally to select next servo position
 void DynamixelEaser::getNextPos()
 {
@@ -194,7 +212,8 @@ void DynamixelEaser::update()
     lastMillis = millis();
 
     currPos = easingFunc( tick, startPos, changePos, tickCount );
-    
+    //currPos = currPos++;
+
     debug_update();
 
     if( !arrived ) tick++;
